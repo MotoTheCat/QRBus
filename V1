@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Password Wall</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      text-align: center;
+      margin: 50px;
+    }
+
+    h2 {
+      color: #3d85c6; /* Set heading color to #3d85c6 */
+    }
+
+    form {
+      max-width: 400px;
+      margin: 0 auto;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 16px;
+      box-sizing: border-box;
+    }
+
+    button {
+      background-color: #3d85c6;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      margin: 0 5px 10px 5px;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .error {
+      color: #ff0000;
+      margin-top: 8px;
+    }
+
+    .disclaimer {
+      font-size: 12px;
+      color: #555;
+      margin-top: 20px;
+    }
+
+    .bus-buttons {
+      margin-top: 20px;
+    }
+  </style>
+  <script>
+    function showCWIDForm() {
+      var cwidForm = document.createElement("div");
+      cwidForm.innerHTML = `
+        <h2>Please enter your Foothill CWID</h2>
+        <form id="login-form" onsubmit="event.preventDefault(); showBusOptions();">
+          <label for="cwid">CWID:</label>
+          <input type="password" id="cwid" name="cwid" maxlength="8" required>
+          <div id="error-message" class="error"></div>
+          <br>
+          <button type="submit">Submit</button>
+        </form>
+        <div id="disclaimer" class="disclaimer">
+          <p>We do not collect or save this information. It is only used for verification purposes.</p>
+        </div>
+      `;
+      document.body.innerHTML = '';
+      document.body.appendChild(cwidForm);
+    }
+
+    function showBusOptions() {
+      var password = document.getElementById("cwid").value;
+      var errorElement = document.getElementById("error-message");
+
+      if (password.length === 8 && password.charAt(0) === '2') {
+        var busOptionsContainer = document.createElement("div");
+        busOptionsContainer.className = "bus-buttons";
+        busOptionsContainer.innerHTML = `
+          <h2>What bus line are you on?</h2>
+          <div>
+            <button onclick="openURL('https://forms.gle/osJprP5x46rPQ8ad8')">522</button>
+            <button onclick="openURL('https://forms.gle/fG8oqGCLzMYBvYmGA')">52</button>
+          </div>
+          <div>
+            <button onclick="openURL('https://forms.gle/J51kTrrmaveGWXbu9')">40</button>
+            <button onclick="openURL('https://forms.gle/GB5RHkVFnpXTddSU8')">22</button>
+          </div>
+        `;
+        document.body.innerHTML = '';
+        document.body.appendChild(busOptionsContainer);
+      } else {
+        errorElement.innerHTML = "Please enter a valid Foothill student ID.";
+      }
+    }
+
+    function openURL(url) {
+      window.location.href = url;
+    }
+  </script>
+</head>
+<body>
+  <script>
+    showCWIDForm();
+  </script>
+</body>
+</html>
